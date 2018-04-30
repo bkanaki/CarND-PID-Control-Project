@@ -36,7 +36,7 @@ int main(int argc, char** arg)
   // TODO: Initialize the pid variable.
   double init_Kp;
   double init_Ki;
-  double init_Kd = 32;
+  double init_Kd = 16;
   // https://robotics.stackexchange.com/questions/167/what-are-good-strategies-for-tuning-pid-loops
   init_Kp = 0.05 * init_Kd;
   init_Ki = 0.001 * init_Kp;
