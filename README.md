@@ -11,7 +11,7 @@ The main idea with the PID controller is quite intuitive, starting with the *P* 
 
 Thus, one must take the previous CTE into account to dampen these oscillations as quickly as possible. This is introduced by a *D* (differential) term. So, the constant multiplier for P term should be relatively lower as compared to the D term. This is visualised below:
 
-[![PD](http://img.youtube.com/vi/iisAz_6mmXw/2.jpg)](http://www.youtube.com/watch?v=iisAz_6mmXw)
+[![PD](http://img.youtube.com/vi/iisAz_6mmXw/0.jpg)](http://www.youtube.com/watch?v=iisAz_6mmXw)
 
 Decent enough! Without any tuning, with a high value for D multiplier (10) and low value of P multiplier (1), the car fiished the track without falling off. But, it oscillated largely at turns. 
 
