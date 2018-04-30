@@ -2,6 +2,33 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+### Reflection
+In this relatively simpler project, the main goal is to implement a PID controller that takes in the cross-track error (CTE), and returns a steering angle so that a car is able to drive itself smoothly on a given track. The CTE in our scenario can be the distance between the center of the car and one of the lane lines.
+
+The main idea with the PID controller is quite intuitive, starting with the *P* (proportional) term that is directly proportional to CTE. As one would expect, with such a naive solution, the car will definitely oscillate and thus, fall off the track very quickly. This is visualised below:
+
+----> Add gif with proper link
+
+Thus, one must take the previous CTE into account to dampen these oscillations as quickly as possible. This is introduced by a *D* (differential) term. So, the constant multiplier for P term should be relatively lower as compared to the D term. This is visualised below:
+
+----> Add gif with proper link
+
+Decent enough! Without any tuning, with a high value for D multiplier (10) and low value of P multiplier (1), the car fiished the track without falling off. But, it oscillated largely at turns. 
+
+On a side note, it is important to know that there may be some drift due to wear and tear and manufacturing limitations. If the drift is too high, then the car stabilize, but possible far away from the center, leading to high CTE throughout the track. In order to overcome this proble, an *I* (integral) term must be incorporated. Moreover, as a very large drift error would deem a car useless for driving, the multipler should be very low, of the order of 1/1000.
+
+### Parameter Selection
+As described above, the parameter selection must be done keeping in ind the effect of each of the multiplier. There are certain automatic ways to determine the parameters, like Twiddle. However, for this project, I used an empirical rulw of thumb, described on [stakoverflow](https://robotics.stackexchange.com/questions/167/what-are-good-strategies-for-tuning-pid-loops) (This link was found from Udacity discussion forums).
+
+This method follows the intuition described above closely and tried to break them each multiplier sequentially.
+
+Using this method, I ended up with the following parameters:
+
+```
+[Kp, Ki, Kd] = [0.8, 0.0008, 16]
+```
+
+---
 
 ## Dependencies
 
