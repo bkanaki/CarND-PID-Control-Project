@@ -28,12 +28,20 @@ std::string hasData(std::string s) {
   return "";
 }
 
-int main()
+int main(int argc, char** arg) 
 {
   uWS::Hub h;
 
   PID pid;
   // TODO: Initialize the pid variable.
+  double init_Kp;
+  double init_Ki;
+  double init_Kd = 32;
+  // https://robotics.stackexchange.com/questions/167/what-are-good-strategies-for-tuning-pid-loops
+  init_Kp = 0.05 * init_Kd;
+  init_Ki = 0.001 * init_Kp;
+
+  pid.Init(init_Kp, init_Ki, init_Kd);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -57,6 +65,8 @@ int main()
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
+          pid.UpdateError(cte);
+          steer_value = pid.TotalError();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
@@ -91,11 +101,11 @@ int main()
     }
   });
 
-  h.onConnection([&h](uWS::WebSocket<uWS::SERVER> ws, uWS::HttpRequest req) {
+  h.onConnection([](uWS::WebSocket<uWS::SERVER> ws, uWS::HttpRequest req) {
     std::cout << "Connected!!!" << std::endl;
   });
 
-  h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER> ws, int code, char *message, size_t length) {
+  h.onDisconnection([](uWS::WebSocket<uWS::SERVER> ws, int code, char *message, size_t length) {
     ws.close();
     std::cout << "Disconnected" << std::endl;
   });
