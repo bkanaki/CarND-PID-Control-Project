@@ -7,11 +7,11 @@ In this relatively simpler project, the main goal is to implement a PID controll
 
 The main idea with the PID controller is quite intuitive, starting with the *P* (proportional) term that is directly proportional to CTE. As one would expect, with such a naive solution, the car will definitely oscillate and thus, fall off the track very quickly. This is visualised below:
 
-[p](gifs/poscilltions.gif)
+![p](gifs/poscilltions.gif)
 
 Thus, one must take the previous CTE into account to dampen these oscillations as quickly as possible. This is introduced by a *D* (differential) term. So, the constant multiplier for P term should be relatively lower as compared to the D term. This is visualised below:
 
-[pd](gifs/pdoscillations.gif)
+![pd](gifs/pdoscillations.gif)
 
 Decent enough! Without any tuning, with a high value for D multiplier (10) and low value of P multiplier (1), the car fiished the track without falling off. But, it oscillated largely at turns. 
 
